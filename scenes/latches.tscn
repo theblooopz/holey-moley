@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://images/rock_texture1.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+
+code = "shader_type canvas_item;
+
+uniform sampler2D dif;
+//uniform sampler2D nor;
+
+void fragment() {
+	COLOR = texture(dif, UV/30.0);
+	//NORMAL.rgb = texture(nor, UV/30.0).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+
+render_priority = 0
+shader = SubResource( 1 )
+shader_param/dif = ExtResource( 1 )
+_sections_unfolded = [ "Shader Param" ]
+
+[sub_resource type="ProxyTexture" id=3]
+
+flags = 0
+
+[sub_resource type="ProxyTexture" id=4]
+
+flags = 0
+
+[node name="latches" type="Node"]
+
+[node name="rock1" type="StaticBody2D" parent="." index="0" groups=[
+"LATCH",
+"THREAT",
+]]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision", "Pause", "Pickable", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="polygon" type="Polygon2D" parent="rock1" index="0"]
+
+material = SubResource( 2 )
+position = Vector2( 8.65584, 0.146708 )
+polygon = PoolVector2Array( -44.3459, -58.1755, -79.3319, -52.5949, -85.5564, -38.6435, -128.484, -5.5892, -132.562, 9.22083, -86.4149, 45.7093, -60.0145, 49.7874, -36.8335, 68.6756, -11.077, 65.8853, 11.46, 55.7973, 32.4945, 52.1484, 37.6458, 46.5679, 39.7922, 43.1336, 42.1532, 38.4116, 78.8563, 3.85488, 45.3728, -12.8869, 23.6943, -34.9946, -6.99889, -39.7166 )
+uv = PoolVector2Array( -51.1738, -113.863, -65.5843, -110.543, -67.7792, -104.556, -84.7147, -89.5689, -85.9914, -83.2854, -65.7352, -69.4041, -54.625, -68.4575, -44.434, -61.2517, -33.7875, -63.147, -24.6895, -67.9896, -16.0338, -70.108, -14.0475, -72.5786, -13.2515, -74.0698, -12.4027, -76.1034, 1.89794, -91.539, -12.5224, -97.5576, -22.1795, -106.147, -35.0957, -107.239 )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = SubResource( 3 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 0.7, 0.85 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Material", "Texture", "Transform", "material" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="collision" type="CollisionPolygon2D" parent="rock1" index="1"]
+
+position = Vector2( 8.65584, 0.146708 )
+build_mode = 0
+polygon = PoolVector2Array( -44.3459, -58.1755, -79.3319, -52.5949, -85.5564, -38.6435, -128.484, -5.5892, -132.562, 9.22083, -86.4149, 45.7093, -60.0145, 49.7874, -36.8335, 68.6756, -11.077, 65.8853, 11.46, 55.7973, 32.4945, 52.1484, 37.6458, 46.5679, 39.7922, 43.1336, 42.1532, 38.4116, 78.8563, 3.85488, 45.3728, -12.8869, 23.6943, -34.9946, -6.99889, -39.7166 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="rock2" type="StaticBody2D" parent="." index="1" groups=[
+"LATCH",
+"THREAT",
+]]
+
+position = Vector2( 247, 0 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="polygon" type="Polygon2D" parent="rock2" index="0"]
+
+material = SubResource( 2 )
+position = Vector2( 10.2696, -2.74047 )
+polygon = PoolVector2Array( -32.5789, -27.0519, -65.7035, -23.5651, -93.5978, -28.2142, -121.505, -42.7613, -140.912, -44.1813, -137.598, -27.1412, -131.918, -15.4656, -115.825, 16.2479, -85.8494, 25.6374, -71.9022, 46.1708, -51.95, 56.6311, -30.4481, 60.6991, -10.4959, 52.7569, 9.65006, 57.2123, 20.6916, 47.7204, 24.7595, 40.1657, 28.6337, 29.3179, 46.2614, 4.71664, 52.8476, -11.5551, 55.9469, -20.4658, 31.152, -19.6909, -0.0354843, -14.4607 )
+uv = PoolVector2Array( -32.5789, -27.0519, -65.7035, -23.5651, -93.5978, -28.2142, -121.505, -42.7613, -140.912, -44.1813, -137.598, -27.1412, -131.918, -15.4656, -115.825, 16.2479, -85.8494, 25.6374, -71.9022, 46.1708, -51.95, 56.6311, -30.4481, 60.6991, -10.4959, 52.7569, 9.65006, 57.2123, 20.6916, 47.7204, 24.7595, 40.1657, 28.6337, 29.3179, 46.2614, 4.71664, 52.8476, -11.5551, 55.9469, -20.4658, 31.152, -19.6909, -0.0354843, -14.4607 )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = SubResource( 4 )
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 0.3, 0.4 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Material", "Texture", "Transform", "material" ]
+
+[node name="collision" type="CollisionPolygon2D" parent="rock2" index="1"]
+
+visible = false
+position = Vector2( 10.2696, -2.93418 )
+build_mode = 0
+polygon = PoolVector2Array( -32.5789, -27.0519, -65.7035, -23.5651, -93.5978, -28.2142, -121.505, -42.7613, -140.912, -44.1813, -137.598, -27.1412, -131.918, -15.4656, -115.825, 16.2479, -85.8494, 25.6374, -71.9022, 46.1708, -51.95, 56.6311, -30.4481, 60.6991, -10.4959, 52.7569, 9.65006, 57.2123, 20.6916, 47.7204, 24.7595, 40.1657, 28.6337, 29.3179, 46.2614, 4.71664, 52.8476, -11.5551, 55.9469, -20.4658, 31.152, -19.6909, -0.0354843, -14.4607 )
+_sections_unfolded = [ "Transform" ]
+
+

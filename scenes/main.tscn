@@ -1,0 +1,1294 @@
+[gd_scene load_steps=48 format=2]
+
+[ext_resource path="res://scripts/main.gd" type="Script" id=1]
+[ext_resource path="res://images/bg_sky.png" type="Texture" id=2]
+[ext_resource path="res://images/clouds.png" type="Texture" id=3]
+[ext_resource path="res://images/mountain1.png" type="Texture" id=4]
+[ext_resource path="res://images/bg_cave.png" type="Texture" id=5]
+[ext_resource path="res://images/grass2.png" type="Texture" id=6]
+[ext_resource path="res://images/cave_side.png" type="Texture" id=7]
+[ext_resource path="res://images/cave_side_right.png" type="Texture" id=8]
+[ext_resource path="res://images/grass1.png" type="Texture" id=9]
+[ext_resource path="res://audio/happy_adveture.ogg" type="AudioStream" id=10]
+[ext_resource path="res://audio/impact.wav" type="AudioStream" id=11]
+[ext_resource path="res://fonts/LuckiestGuy.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://fonts/menu_font.tres" type="DynamicFont" id=13]
+[ext_resource path="res://images/hp_bg.png" type="Texture" id=14]
+[ext_resource path="res://images/hp.png" type="Texture" id=15]
+[ext_resource path="res://fonts/arialbd.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://images/rope_texture.png" type="Texture" id=17]
+[ext_resource path="res://images/hook.png" type="Texture" id=18]
+[ext_resource path="res://images/dirt_particle.png" type="Texture" id=19]
+
+[sub_resource type="Animation" id=1]
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -360, 0 ) ]
+}
+
+[sub_resource type="ShaderMaterial" id=2]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Container
+
+func fade_show(show=true):
+	$anim.stop()
+	
+	if show:
+		$anim.play(\"fade\")
+	else:
+		$anim.play_backwards(\"fade\")
+		
+func fade_hide(show=false):
+	fade_show(show)"
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform float alpha = 0;
+
+void fragment() {
+	COLOR.rgba = vec4(0.0,0.0,0.0,alpha);	
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/alpha = 0.0
+
+[sub_resource type="ProxyTexture" id=6]
+
+[sub_resource type="Animation" id=7]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("shade1:material:shader_param/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.5 ]
+}
+
+[sub_resource type="DynamicFont" id=8]
+size = 72
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="DynamicFont" id=19]
+size = 72
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.169446, 0.363281, 0.163193, 1 )
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0.407192, 0.71875, 0.342529, 1 )
+
+[sub_resource type="Theme" id=22]
+Button/colors/font_color = Color( 0, 0, 0, 1 )
+Button/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+Button/colors/font_color_hover = Color( 0, 0, 0, 1 )
+Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = null
+Button/styles/pressed = null
+ButtonGroup/styles/panel = null
+CheckBox/colors/font_color = Color( 0, 0, 0, 1 )
+CheckBox/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+CheckBox/colors/font_color_hover = Color( 0, 0, 0, 1 )
+CheckBox/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+CheckBox/constants/check_vadjust = 0
+CheckBox/constants/hseparation = 4
+CheckBox/fonts/font = null
+CheckBox/icons/checked = null
+CheckBox/icons/radio_checked = null
+CheckBox/icons/radio_unchecked = null
+CheckBox/icons/unchecked = null
+CheckBox/styles/disabled = null
+CheckBox/styles/focus = null
+CheckBox/styles/hover = null
+CheckBox/styles/normal = null
+CheckBox/styles/pressed = null
+CheckButton/colors/font_color = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/on = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = null
+CheckButton/styles/hover = null
+CheckButton/styles/normal = null
+CheckButton/styles/pressed = null
+ColorPicker/constants/h_width = 30
+ColorPicker/constants/label_width = 10
+ColorPicker/constants/margin = 4
+ColorPicker/constants/sv_height = 256
+ColorPicker/constants/sv_width = 256
+ColorPicker/icons/add_preset = null
+ColorPicker/icons/color_hue = null
+ColorPicker/icons/color_sample = null
+ColorPicker/icons/preset_bg = null
+ColorPicker/icons/screen_picker = null
+ColorPickerButton/colors/font_color = Color( 0, 0, 0, 1 )
+ColorPickerButton/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+ColorPickerButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+ColorPickerButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+ColorPickerButton/constants/hseparation = 2
+ColorPickerButton/fonts/font = null
+ColorPickerButton/icons/bg = null
+ColorPickerButton/styles/disabled = null
+ColorPickerButton/styles/focus = null
+ColorPickerButton/styles/hover = null
+ColorPickerButton/styles/normal = null
+ColorPickerButton/styles/pressed = null
+Dialogs/constants/button_margin = 32
+Dialogs/constants/margin = 8
+FileDialog/colors/files_disabled = Color( 0, 0, 0, 1 )
+FileDialog/icons/folder = null
+FileDialog/icons/parent_folder = null
+FileDialog/icons/reload = null
+Fonts/fonts/large = null
+Fonts/fonts/normal = null
+GraphEdit/colors/grid_major = Color( 0, 0, 0, 1 )
+GraphEdit/colors/grid_minor = Color( 0, 0, 0, 1 )
+GraphEdit/constants/bezier_len_neg = 160
+GraphEdit/constants/bezier_len_pos = 80
+GraphEdit/icons/minus = null
+GraphEdit/icons/more = null
+GraphEdit/icons/reset = null
+GraphEdit/icons/snap = null
+GraphEdit/styles/bg = null
+GraphNode/colors/title_color = Color( 0, 0, 0, 1 )
+GraphNode/constants/close_offset = 18
+GraphNode/constants/port_offset = 3
+GraphNode/constants/separation = 1
+GraphNode/constants/title_offset = 20
+GraphNode/fonts/title_font = null
+GraphNode/icons/close = null
+GraphNode/icons/port = null
+GraphNode/icons/resizer = null
+GraphNode/styles/breakpoint = null
+GraphNode/styles/comment = null
+GraphNode/styles/commentfocus = null
+GraphNode/styles/defaultfocus = null
+GraphNode/styles/defaultframe = null
+GraphNode/styles/frame = null
+GraphNode/styles/position = null
+GraphNode/styles/selectedframe = null
+GridContainer/constants/hseparation = 4
+GridContainer/constants/vseparation = 4
+HBoxContainer/constants/separation = 4
+HScrollBar/icons/decrement = null
+HScrollBar/icons/decrement_highlight = null
+HScrollBar/icons/increment = null
+HScrollBar/icons/increment_highlight = null
+HScrollBar/styles/grabber = null
+HScrollBar/styles/grabber_highlight = null
+HScrollBar/styles/grabber_pressed = null
+HScrollBar/styles/scroll = null
+HScrollBar/styles/scroll_focus = null
+HSeparator/constants/separation = 4
+HSeparator/styles/separator = null
+HSlider/icons/grabber = null
+HSlider/icons/grabber_disabled = null
+HSlider/icons/grabber_highlight = null
+HSlider/icons/tick = null
+HSlider/styles/focus = null
+HSlider/styles/grabber_area = null
+HSlider/styles/grabber_disabled = null
+HSlider/styles/grabber_highlight = null
+HSlider/styles/slider = null
+HSplitContainer/constants/autohide = 1
+HSplitContainer/constants/separation = 12
+HSplitContainer/icons/grabber = null
+HSplitContainer/styles/bg = null
+Icons/icons/close = null
+Icons/icons/logo = null
+ItemList/colors/font_color = Color( 0, 0, 0, 1 )
+ItemList/colors/font_color_selected = Color( 0, 0, 0, 1 )
+ItemList/colors/guide_color = Color( 0, 0, 0, 1 )
+ItemList/constants/hseparation = 4
+ItemList/constants/icon_margin = 4
+ItemList/constants/line_separation = 2
+ItemList/constants/vseparation = 2
+ItemList/fonts/font = null
+ItemList/styles/bg = null
+ItemList/styles/bg_focus = null
+ItemList/styles/cursor = null
+ItemList/styles/cursor_unfocused = null
+ItemList/styles/selected = null
+ItemList/styles/selected_focus = null
+Label/colors/font_color = Color( 0, 0, 0, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = null
+Label/styles/normal = null
+LineEdit/colors/cursor_color = Color( 0, 0, 0, 1 )
+LineEdit/colors/font_color = Color( 0, 0, 0, 1 )
+LineEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
+LineEdit/colors/selection_color = Color( 0, 0, 0, 1 )
+LineEdit/constants/minimum_spaces = 12
+LineEdit/fonts/font = null
+LineEdit/styles/focus = null
+LineEdit/styles/normal = null
+LineEdit/styles/read_only = null
+LinkButton/colors/font_color = Color( 0, 0, 0, 1 )
+LinkButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+LinkButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+LinkButton/constants/underline_spacing = 2
+LinkButton/fonts/font = null
+LinkButton/styles/focus = null
+MarginContainer/constants/margin_bottom = 0
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 0
+MarginContainer/constants/margin_top = 0
+MenuButton/colors/font_color = Color( 0, 0, 0, 1 )
+MenuButton/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+MenuButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+MenuButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+MenuButton/constants/hseparation = 3
+MenuButton/fonts/font = null
+MenuButton/styles/disabled = null
+MenuButton/styles/focus = null
+MenuButton/styles/hover = null
+MenuButton/styles/normal = null
+MenuButton/styles/pressed = null
+OptionButton/colors/font_color = Color( 0, 0, 0, 1 )
+OptionButton/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+OptionButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+OptionButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+OptionButton/constants/arrow_margin = 2
+OptionButton/constants/hseparation = 2
+OptionButton/fonts/font = null
+OptionButton/icons/arrow = null
+OptionButton/styles/disabled = null
+OptionButton/styles/focus = null
+OptionButton/styles/hover = null
+OptionButton/styles/normal = null
+OptionButton/styles/pressed = null
+Panel/styles/panel = null
+Panel/styles/panelf = null
+Panel/styles/panelnc = null
+PanelContainer/styles/panel = null
+PopupMenu/colors/font_color = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_accel = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_hover = Color( 0, 0, 0, 1 )
+PopupMenu/constants/hseparation = 4
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = null
+PopupMenu/icons/checked = null
+PopupMenu/icons/radio_checked = null
+PopupMenu/icons/radio_unchecked = null
+PopupMenu/icons/submenu = null
+PopupMenu/icons/unchecked = null
+PopupMenu/styles/hover = null
+PopupMenu/styles/panel = null
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = null
+PopupPanel/styles/panel = null
+ProgressBar/colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+ProgressBar/fonts/font = null
+ProgressBar/styles/bg = SubResource( 20 )
+ProgressBar/styles/fg = SubResource( 21 )
+ReferenceRect/styles/border = null
+RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
+RichTextLabel/colors/font_color_selected = Color( 0, 0, 0, 1 )
+RichTextLabel/colors/selection_color = Color( 0, 0, 0, 1 )
+RichTextLabel/constants/line_separation = 1
+RichTextLabel/constants/table_hseparation = 3
+RichTextLabel/constants/table_vseparation = 3
+RichTextLabel/fonts/bold_font = null
+RichTextLabel/fonts/bold_italics_font = null
+RichTextLabel/fonts/italics_font = null
+RichTextLabel/fonts/mono_font = null
+RichTextLabel/fonts/normal_font = null
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = null
+SpinBox/icons/updown = null
+TabContainer/colors/font_color_bg = Color( 0, 0, 0, 1 )
+TabContainer/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+TabContainer/colors/font_color_fg = Color( 0, 0, 0, 1 )
+TabContainer/constants/hseparation = 4
+TabContainer/constants/label_valign_bg = 2
+TabContainer/constants/label_valign_fg = 0
+TabContainer/constants/side_margin = 8
+TabContainer/constants/top_margin = 24
+TabContainer/fonts/font = null
+TabContainer/icons/decrement = null
+TabContainer/icons/decrement_highlight = null
+TabContainer/icons/increment = null
+TabContainer/icons/increment_highlight = null
+TabContainer/icons/menu = null
+TabContainer/icons/menu_highlight = null
+TabContainer/styles/panel = null
+TabContainer/styles/tab_bg = null
+TabContainer/styles/tab_fg = null
+Tabs/colors/font_color_bg = Color( 0, 0, 0, 1 )
+Tabs/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+Tabs/colors/font_color_fg = Color( 0, 0, 0, 1 )
+Tabs/constants/hseparation = 4
+Tabs/constants/label_valign_bg = 2
+Tabs/constants/label_valign_fg = 0
+Tabs/constants/top_margin = 24
+Tabs/fonts/font = null
+Tabs/icons/close = null
+Tabs/icons/decrement = null
+Tabs/icons/decrement_highlight = null
+Tabs/icons/increment = null
+Tabs/icons/increment_highlight = null
+Tabs/styles/button = null
+Tabs/styles/button_pressed = null
+Tabs/styles/panel = null
+Tabs/styles/tab_bg = null
+Tabs/styles/tab_fg = null
+TextEdit/colors/background_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/brace_mismatch_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/breakpoint_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/caret_background_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/caret_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/code_folding_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/completion_background_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/completion_existing_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/completion_font_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/completion_scroll_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/completion_selected_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/current_line_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/font_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
+TextEdit/colors/function_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/line_number_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/mark_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/member_variable_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/number_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/selection_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/symbol_color = Color( 0, 0, 0, 1 )
+TextEdit/colors/word_highlighted_color = Color( 0, 0, 0, 1 )
+TextEdit/constants/completion_lines = 7
+TextEdit/constants/completion_max_width = 50
+TextEdit/constants/completion_scroll_width = 3
+TextEdit/constants/line_spacing = 4
+TextEdit/fonts/font = null
+TextEdit/icons/tab = null
+TextEdit/styles/completion = null
+TextEdit/styles/focus = null
+TextEdit/styles/normal = null
+TextEdit/styles/read_only = null
+ToolButton/colors/font_color = Color( 0, 0, 0, 1 )
+ToolButton/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+ToolButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+ToolButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+ToolButton/constants/hseparation = 3
+ToolButton/fonts/font = null
+ToolButton/styles/disabled = null
+ToolButton/styles/focus = null
+ToolButton/styles/hover = null
+ToolButton/styles/normal = null
+ToolButton/styles/pressed = null
+TooltipLabel/colors/font_color = Color( 0, 0, 0, 1 )
+TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/fonts/font = null
+TooltipPanel/styles/panel = null
+Tree/colors/cursor_color = Color( 0, 0, 0, 1 )
+Tree/colors/custom_button_font_highlight = Color( 0, 0, 0, 1 )
+Tree/colors/drop_position_color = Color( 0, 0, 0, 1 )
+Tree/colors/font_color = Color( 0, 0, 0, 1 )
+Tree/colors/font_color_selected = Color( 0, 0, 0, 1 )
+Tree/colors/guide_color = Color( 0, 0, 0, 1 )
+Tree/colors/relationship_line_color = Color( 0, 0, 0, 1 )
+Tree/colors/selection_color = Color( 0, 0, 0, 1 )
+Tree/colors/title_button_color = Color( 0, 0, 0, 1 )
+Tree/constants/button_margin = 4
+Tree/constants/draw_relationship_lines = 0
+Tree/constants/guide_width = 2
+Tree/constants/hseparation = 4
+Tree/constants/item_margin = 12
+Tree/constants/scroll_border = 4
+Tree/constants/scroll_speed = 12
+Tree/constants/vseparation = 4
+Tree/fonts/font = null
+Tree/fonts/title_button_font = null
+Tree/icons/arrow = null
+Tree/icons/arrow_collapsed = null
+Tree/icons/checked = null
+Tree/icons/select_arrow = null
+Tree/icons/unchecked = null
+Tree/icons/updown = null
+Tree/styles/bg = null
+Tree/styles/bg_focus = null
+Tree/styles/button_pressed = null
+Tree/styles/cursor = null
+Tree/styles/cursor_unfocused = null
+Tree/styles/custom_button = null
+Tree/styles/custom_button_hover = null
+Tree/styles/custom_button_pressed = null
+Tree/styles/selected = null
+Tree/styles/selected_focus = null
+Tree/styles/title_button_hover = null
+Tree/styles/title_button_normal = null
+Tree/styles/title_button_pressed = null
+VBoxContainer/constants/separation = 4
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/styles/grabber = null
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null
+VScrollBar/styles/scroll = null
+VScrollBar/styles/scroll_focus = null
+VSeparator/constants/separation = 4
+VSeparator/styles/separator = null
+VSlider/icons/grabber = null
+VSlider/icons/grabber_disabled = null
+VSlider/icons/grabber_highlight = null
+VSlider/icons/tick = null
+VSlider/styles/focus = null
+VSlider/styles/grabber_area = null
+VSlider/styles/grabber_disabled = null
+VSlider/styles/grabber_highlight = null
+VSlider/styles/slider = null
+VSplitContainer/constants/autohide = 1
+VSplitContainer/constants/separation = 12
+VSplitContainer/icons/grabber = null
+VSplitContainer/styles/bg = null
+WindowDialog/colors/title_color = Color( 0, 0, 0, 1 )
+WindowDialog/constants/close_h_ofs = 18
+WindowDialog/constants/close_v_ofs = 18
+WindowDialog/constants/scaleborder_size = 4
+WindowDialog/constants/title_height = 20
+WindowDialog/fonts/title_font = null
+WindowDialog/icons/close = null
+WindowDialog/icons/close_highlight = null
+WindowDialog/styles/panel = null
+
+[sub_resource type="DynamicFont" id=23]
+size = 28
+use_filter = true
+font_data = ExtResource( 16 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+
+[sub_resource type="DynamicFont" id=25]
+size = 17
+use_filter = true
+extra_spacing_bottom = 4
+font_data = ExtResource( 16 )
+
+[sub_resource type="Animation" id=26]
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.871094, 0.804422, 0.677139, 0 ), Color( 0.808594, 0.739105, 0.606445, 0.850824 ), Color( 0.8125, 0.724129, 0.55542, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.15, 0.15 ), Vector2( 0.8, 0.8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 65.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="RectangleShape2D" id=27]
+extents = Vector2( 166.468, 50 )
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 32, 1474.87 )
+
+[node name="main" type="Node"]
+script = ExtResource( 1 )
+
+[node name="bg" type="Node2D" parent="."]
+z_index = -2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="sky" type="Sprite" parent="bg"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="clouds" type="Sprite" parent="bg"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 340 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bg/clouds"]
+autoplay = "default"
+playback_process_mode = 0
+anims/default = SubResource( 1 )
+
+[node name="mountains" type="Sprite" parent="bg"]
+position = Vector2( 0, 190 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="cave" type="Node2D" parent="."]
+
+[node name="bg_cave" type="Sprite" parent="cave"]
+material = SubResource( 2 )
+position = Vector2( 0, 320 )
+z_index = -1
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 360, 640 )
+
+[node name="bg_grass" type="Sprite" parent="cave"]
+position = Vector2( 187.571, 325.268 )
+rotation = 0.000812872
+scale = Vector2( 0.920967, 0.689448 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 340, 64 )
+
+[node name="bg_cave_left" type="Sprite" parent="cave"]
+position = Vector2( -31, 310 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 7 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 75, 650 )
+region_filter_clip = true
+
+[node name="bg_cave_right" type="Sprite" parent="cave"]
+position = Vector2( 314, 320 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 3, 0, 78, 640 )
+
+[node name="grass1_left" type="Sprite" parent="cave"]
+position = Vector2( 339, 318 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 9 )
+flip_h = true
+
+[node name="grass1_right" type="Sprite" parent="cave"]
+position = Vector2( 19, 318 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 9 )
+
+[node name="player_target" type="Position2D" parent="."]
+position = Vector2( 180, 320 )
+
+[node name="latch_engine" type="Node2D" parent="player_target"]
+
+[node name="latch_spawns" type="Node2D" parent="player_target/latch_engine"]
+position = Vector2( -180, -230 )
+
+[node name="spawns" type="Node2D" parent="player_target/latch_engine/latch_spawns"]
+
+[node name="latch_spawn1" type="Position2D" parent="player_target/latch_engine/latch_spawns/spawns" groups=[
+"SPAWN_LEFT",
+]]
+position = Vector2( 16.1421, 727.57 )
+z_index = 2
+
+[node name="latch_spawn2" type="Position2D" parent="player_target/latch_engine/latch_spawns/spawns" groups=[
+"SPAWN_RIGHT",
+]]
+position = Vector2( 348.52, 753.893 )
+z_index = 2
+
+[node name="latch_pool" type="Node2D" parent="."]
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 10 )
+volume_db = -2.0
+autoplay = true
+bus = "MUSIC"
+
+[node name="hook_fx" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 11 )
+volume_db = -2.0
+max_distance = 500.0
+bus = "SFX"
+
+[node name="rope_attach" type="Position2D" parent="."]
+position = Vector2( 33, 322 )
+z_index = 2
+
+[node name="stop_wall" type="StaticBody2D" parent="."]
+position = Vector2( 179.57, 285.679 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="collision" type="CollisionPolygon2D" parent="stop_wall"]
+polygon = PoolVector2Array( -179.062, 26.9877, -122.46, -51.6673, -53.3614, -87.6869, 12.0619, -98.7133, 80.4255, -86.9518, 123.061, -47.9918, 180.398, 31.3982, 130.43, 44.321, 110.43, 14.321, 95.1274, -11.9723, 77.4851, -45.0515, 40.7305, -67.8394, 3.24075, -75.9254, -45.2754, -68.5744, -71.7387, -50.1971, -109.57, -15.679, -129.57, 14.321, -139.57, 54.321, -159.57, 34.321 )
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="pause_shade" type="Container" parent="hud"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="shade1" type="Sprite" parent="hud/pause_shade"]
+material = SubResource( 5 )
+position = Vector2( -19.9987, -137.808 )
+scale = Vector2( 1.09723, 1.21201 )
+texture = SubResource( 6 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 360, 650 )
+
+[node name="anim" type="AnimationPlayer" parent="hud/pause_shade"]
+playback_speed = 1.8
+anims/fade = SubResource( 7 )
+
+[node name="shade" type="TextureRect" parent="hud/pause_shade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="title_menu" type="VBoxContainer" parent="hud"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -170.0
+margin_top = -192.0
+margin_right = 170.0
+margin_bottom = 305.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+custom_constants/separation = 150
+
+[node name="title" type="CenterContainer" parent="hud/title_menu"]
+margin_left = 63.0
+margin_right = 277.0
+margin_bottom = 149.0
+mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="title_text" type="Label" parent="hud/title_menu/title"]
+margin_right = 214.0
+margin_bottom = 149.0
+mouse_filter = 1
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 1, 0.980927, 0.511719, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.498039 )
+text = "Holey
+Moley"
+align = 2
+uppercase = true
+
+[node name="play" type="CenterContainer" parent="hud/title_menu"]
+margin_top = 299.0
+margin_right = 340.0
+margin_bottom = 323.0
+
+[node name="btn_play" type="Button" parent="hud/title_menu/play"]
+margin_left = 74.0
+margin_right = 265.0
+margin_bottom = 24.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+action_mode = 0
+text = "TAP HERE TO PLAY"
+flat = true
+
+[node name="instructions" type="CenterContainer" parent="hud/title_menu"]
+margin_top = 473.0
+margin_right = 340.0
+margin_bottom = 497.0
+
+[node name="btn_instructions" type="Button" parent="hud/title_menu/instructions"]
+margin_left = 19.0
+margin_right = 320.0
+margin_bottom = 24.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+action_mode = 0
+text = "TAP HERE FOR INSTRUCTIONS"
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud"]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 145.0
+
+[node name="ad" type="Control" parent="hud/VBoxContainer"]
+visible = false
+margin_right = 340.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+
+[node name="menu_score" type="HBoxContainer" parent="hud/VBoxContainer"]
+margin_right = 340.0
+margin_bottom = 24.0
+size_flags_vertical = 8
+
+[node name="menu" type="VBoxContainer" parent="hud/VBoxContainer/menu_score"]
+pause_mode = 2
+margin_right = 211.0
+margin_bottom = 24.0
+grow_vertical = 0
+mouse_filter = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 10
+
+[node name="btn_menu" type="Button" parent="hud/VBoxContainer/menu_score/menu"]
+margin_right = 211.0
+margin_bottom = 24.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+action_mode = 0
+text = "TAP HERE FOR MENU"
+flat = true
+align = 0
+
+[node name="btn_restart" type="Button" parent="hud/VBoxContainer/menu_score/menu" groups=[
+"SHOW_PAUSE",
+]]
+visible = false
+margin_top = 34.0
+margin_right = 92.0
+margin_bottom = 58.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0.533333, 1, 0.498039, 1 )
+action_mode = 0
+text = "RESTART"
+flat = true
+align = 0
+
+[node name="btn_fullscreen" type="Button" parent="hud/VBoxContainer/menu_score/menu" groups=[
+"SHOW_PAUSE",
+]]
+visible = false
+margin_top = 68.0
+margin_right = 131.0
+margin_bottom = 92.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0.498039, 0.505882, 1, 1 )
+action_mode = 0
+text = "FULLSCREEN"
+flat = true
+align = 0
+
+[node name="btn_mute" type="Button" parent="hud/VBoxContainer/menu_score/menu" groups=[
+"SHOW_PAUSE",
+]]
+visible = false
+margin_top = 102.0
+margin_right = 56.0
+margin_bottom = 126.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0.86615, 0.496094, 1, 1 )
+action_mode = 0
+text = "MUTE"
+flat = true
+align = 0
+
+[node name="btn_mute_sfx" type="Button" parent="hud/VBoxContainer/menu_score/menu" groups=[
+"SHOW_PAUSE",
+]]
+visible = false
+margin_top = 136.0
+margin_right = 100.0
+margin_bottom = 160.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0.498039, 0.717647, 1, 1 )
+action_mode = 0
+text = "MUTE SFX"
+flat = true
+align = 0
+
+[node name="btn_quit" type="Button" parent="hud/VBoxContainer/menu_score/menu" groups=[
+"SHOW_PAUSE",
+]]
+visible = false
+margin_top = 170.0
+margin_right = 48.0
+margin_bottom = 194.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.498039, 0.498039, 1 )
+action_mode = 0
+text = "QUIT"
+flat = true
+align = 0
+
+[node name="score_meters" type="VBoxContainer" parent="hud/VBoxContainer/menu_score"]
+visible = false
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 145.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/separation = 10
+
+[node name="score_label" type="Label" parent="hud/VBoxContainer/menu_score/score_meters"]
+margin_right = 125.0
+margin_bottom = 73.0
+grow_vertical = 0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 19 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.498039 )
+text = "0"
+align = 2
+
+[node name="best_label" type="Label" parent="hud/VBoxContainer/menu_score/score_meters"]
+margin_top = 83.0
+margin_right = 125.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+text = "Best: 0"
+align = 2
+uppercase = true
+
+[node name="meters" type="HBoxContainer" parent="hud/VBoxContainer/menu_score/score_meters"]
+margin_left = 61.0
+margin_top = 117.0
+margin_right = 125.0
+margin_bottom = 145.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = SubResource( 22 )
+
+[node name="hp_meter" type="TextureProgress" parent="hud/VBoxContainer/menu_score/score_meters/meters"]
+margin_right = 32.0
+margin_bottom = 28.0
+value = 100.0
+texture_under = ExtResource( 14 )
+texture_progress = ExtResource( 15 )
+fill_mode = 4
+
+[node name="death_note" type="CenterContainer" parent="hud"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud/death_note"]
+margin_left = 95.0
+margin_top = 212.0
+margin_right = 265.0
+margin_bottom = 428.0
+mouse_filter = 2
+custom_constants/separation = 80
+
+[node name="spacer" type="Control" parent="hud/death_note/VBoxContainer"]
+margin_right = 170.0
+mouse_filter = 2
+
+[node name="death_note" type="Label" parent="hud/death_note/VBoxContainer"]
+margin_top = 80.0
+margin_right = 170.0
+margin_bottom = 112.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 23 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.498039 )
+text = "You Failed"
+uppercase = true
+
+[node name="btn_restart2" type="Button" parent="hud/death_note/VBoxContainer"]
+margin_left = 33.0
+margin_top = 192.0
+margin_right = 137.0
+margin_bottom = 216.0
+size_flags_horizontal = 4
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+action_mode = 0
+text = "RESTART?"
+flat = true
+
+[node name="reward_video_container" type="VBoxContainer" parent="hud/death_note/VBoxContainer"]
+visible = false
+margin_top = 296.0
+margin_right = 210.0
+margin_bottom = 383.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="lbl_reward" type="Label" parent="hud/death_note/VBoxContainer/reward_video_container"]
+margin_right = 210.0
+margin_bottom = 51.0
+mouse_filter = 1
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+text = "triple your max health
+for one turn?"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="hud/death_note/VBoxContainer/reward_video_container"]
+margin_top = 55.0
+margin_right = 210.0
+margin_bottom = 59.0
+mouse_filter = 2
+custom_styles/separator = SubResource( 24 )
+
+[node name="btn_reward" type="Button" parent="hud/death_note/VBoxContainer/reward_video_container"]
+margin_left = 34.0
+margin_top = 63.0
+margin_right = 175.0
+margin_bottom = 87.0
+size_flags_horizontal = 4
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+action_mode = 0
+text = "WATCH VIDEO"
+flat = true
+
+[node name="help" type="VBoxContainer" parent="hud"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_constants/separation = 25
+
+[node name="ad_space" type="Control" parent="hud/help"]
+margin_right = 340.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 0, 37 )
+
+[node name="txt_help" type="RichTextLabel" parent="hud/help"]
+margin_top = 62.0
+margin_right = 340.0
+margin_bottom = 517.0
+rect_min_size = Vector2( 340, 455 )
+mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_fonts/normal_font = SubResource( 25 )
+custom_colors/default_color = Color( 1, 0.980392, 0.509804, 1 )
+bbcode_enabled = true
+bbcode_text = "[u]Objective[/u]
+Go down as deep as you can while avoiding the rocks.
+
+[u]Controls[/u]
+Latch onto grappable objects by tapping near them.
+The menu is the top left button labeled \"menu\".
+
+Grappling: Mouse click, space, touch
+Restart: R or menu item
+Pause: Esc or click menu
+Fullscreen: F
+
+[u]Collectables[/u]
+The bugs give you 25 health.
+The hearts give you full health."
+text = "Objective
+Go down as deep as you can while avoiding the rocks.
+
+Controls
+Latch onto grappable objects by tapping near them.
+The menu is the top left button labeled \"menu\".
+
+Grappling: Mouse click, space, touch
+Restart: R or menu item
+Pause: Esc or click menu
+Fullscreen: F
+
+Collectables
+The bugs give you 25 health.
+The hearts give you full health."
+scroll_active = false
+
+[node name="btn_back" type="Button" parent="hud/help"]
+margin_left = 53.0
+margin_top = 542.0
+margin_right = 286.0
+margin_bottom = 566.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 0.980392, 0.509804, 1 )
+action_mode = 0
+text = "TAP HERE TO GO BACK"
+flat = true
+
+[node name="rope" type="Line2D" parent="."]
+z_index = 1
+points = PoolVector2Array( 0, 0, 0, 0 )
+width = 3.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 17 )
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="hook" type="Sprite" parent="rope"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 18 )
+offset = Vector2( 0, -11 )
+region_rect = Rect2( 0, 0, 0.125, 0.375 )
+
+[node name="dust" type="Sprite" parent="."]
+modulate = Color( 0.8125, 0.724129, 0.55542, 0 )
+rotation = 1.13446
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 19 )
+
+[node name="anim" type="AnimationPlayer" parent="dust"]
+playback_process_mode = 0
+playback_speed = 2.0
+anims/puff = SubResource( 26 )
+
+[node name="dust_particles" type="Node2D" parent="."]
+
+[node name="rope_tween" type="Tween" parent="."]
+playback_process_mode = 0
+
+[node name="generator_ticker" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.0
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2( 180, 320 )
+offset = Vector2( 0, 3 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 360
+limit_bottom = 2000000000
+drag_margin_v_enabled = true
+smoothing_speed = 1.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="shaker" type="Tween" parent="camera"]
+
+[node name="shake_freq" type="Timer" parent="camera/shaker"]
+wait_time = 0.03
+
+[node name="shake_dur" type="Timer" parent="camera/shaker"]
+wait_time = 0.25
+one_shot = true
+
+[node name="destroyer" type="Area2D" parent="."]
+position = Vector2( 180, -70 )
+z_index = 1
+input_pickable = false
+
+[node name="collision" type="CollisionShape2D" parent="destroyer"]
+position = Vector2( 0, -150 )
+shape = SubResource( 27 )
+
+[node name="walls" type="StaticBody2D" parent="." groups=[
+"LATCH",
+]]
+position = Vector2( 180, 139 )
+z_index = 1
+
+[node name="collision_left" type="CollisionShape2D" parent="walls"]
+position = Vector2( -184, 0 )
+shape = SubResource( 28 )
+
+[node name="collision_right" type="CollisionShape2D" parent="walls"]
+position = Vector2( 176, 0 )
+shape = SubResource( 28 )
+[connection signal="tree_exited" from="." to="." method="_on_main_tree_exited"]
+[connection signal="pressed" from="hud/title_menu/play/btn_play" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="hud/title_menu/instructions/btn_instructions" to="." method="_on_btn_instructions_pressed"]
+[connection signal="pressed" from="hud/VBoxContainer/menu_score/menu/btn_menu" to="." method="_on_btn_menu_pressed"]
+[connection signal="pressed" from="hud/VBoxContainer/menu_score/menu/btn_restart" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="hud/VBoxContainer/menu_score/menu/btn_fullscreen" to="." method="_on_btn_fullscreen_pressed"]
+[connection signal="pressed" from="hud/VBoxContainer/menu_score/menu/btn_mute" to="." method="_on_btn_mute_pressed"]
+[connection signal="pressed" from="hud/VBoxContainer/menu_score/menu/btn_mute_sfx" to="." method="_on_btn_mute_sfx_pressed"]
+[connection signal="pressed" from="hud/VBoxContainer/menu_score/menu/btn_quit" to="." method="_on_btn_quit_pressed"]
+[connection signal="pressed" from="hud/death_note/VBoxContainer/btn_restart2" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="hud/death_note/VBoxContainer/reward_video_container/btn_reward" to="." method="_on_btn_reward_pressed"]
+[connection signal="pressed" from="hud/help/btn_back" to="." method="_on_btn_back_pressed"]
+[connection signal="tween_completed" from="rope_tween" to="." method="_on_rope_tween_tween_completed"]
+[connection signal="timeout" from="generator_ticker" to="." method="_on_generator_ticker_timeout"]
+[connection signal="timeout" from="camera/shaker/shake_freq" to="." method="_on_shake_freq_timeout"]
+[connection signal="timeout" from="camera/shaker/shake_dur" to="." method="_on_shake_dur_timeout"]
+[connection signal="body_entered" from="destroyer" to="." method="_on_destroyer_body_enter"]

@@ -1,0 +1,288 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://scripts/player.gd" type="Script" id=1]
+[ext_resource path="res://audio/swish.ogg" type="AudioStream" id=2]
+[ext_resource path="res://audio/squeak.ogg" type="AudioStream" id=3]
+[ext_resource path="res://images/mole_idle.png" type="Texture" id=4]
+[ext_resource path="res://images/mole_dead.png" type="Texture" id=5]
+[ext_resource path="res://images/mole_helmet.png" type="Texture" id=6]
+[ext_resource path="res://images/mole_foot.png" type="Texture" id=7]
+[ext_resource path="res://images/mole_arm.png" type="Texture" id=8]
+[ext_resource path="res://images/target.png" type="Texture" id=9]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+radius = 10.362
+height = 10.9121
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "falling"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites/mole_arm_right:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 86.6043, -51.5894 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites/mole_arm_left:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 84.6975, 241.598 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("anim")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "falling1" ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "falling1"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites/mole_arm_left:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 241.598, 221.493, 241.598 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites/mole_arm_right:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -51.5894, -36.0309, -51.5894 ]
+}
+
+[sub_resource type="Shader" id=5]
+
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float radius = 0;
+
+void fragment(){
+	vec4 col = texture(TEXTURE, UV);
+	vec2 ps = TEXTURE_PIXEL_SIZE;
+	
+	col += texture(TEXTURE, UV + vec2(0, -radius)*ps);
+	col += texture(TEXTURE, UV + vec2(0, radius)*ps);
+	col += texture(TEXTURE, UV + vec2(-radius, 0)*ps);
+	col += texture(TEXTURE, UV + vec2(radius, 0)*ps);
+	col /= 5.0;
+	
+	COLOR = col;
+	}"
+
+[sub_resource type="ShaderMaterial" id=6]
+
+shader = SubResource( 5 )
+shader_param/radius = 0.0
+
+[sub_resource type="Animation" id=7]
+
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.5 ]
+}
+
+[node name="player" type="RigidBody2D" groups=[
+"PLAYER",
+]]
+position = Vector2( 0.0694427, 0 )
+collision_layer = 3
+mode = 2
+gravity_scale = 2.25
+contacts_reported = 1
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="swish" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -2.0
+max_distance = 500.0
+bus = "SFX"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hit_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = 5.0
+max_distance = 500.0
+bus = "Squeak"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0.14563, -1.1521 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ray" type="RayCast2D" parent="."]
+modulate = Color( 0.664062, 0, 1, 1 )
+enabled = true
+cast_to = Vector2( 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="sprites" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="helmet_sprite" type="Sprite" parent="sprites"]
+position = Vector2( 0.75206, -27.7493 )
+texture = ExtResource( 6 )
+
+[node name="rope_from" type="Position2D" parent="sprites"]
+position = Vector2( 0, 6 )
+z_index = 1
+
+[node name="mole_foot_right" type="Sprite" parent="sprites"]
+show_behind_parent = true
+position = Vector2( 10.0585, 20.3162 )
+scale = Vector2( 0.723788, 0.809949 )
+texture = ExtResource( 7 )
+
+[node name="mole_foot_left" type="Sprite" parent="sprites"]
+show_behind_parent = true
+position = Vector2( -9.94152, 20.3162 )
+scale = Vector2( 0.723788, 0.809949 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="mole_arm_left" type="Sprite" parent="sprites"]
+modulate = Color( 0.875, 0.875, 0.875, 1 )
+position = Vector2( -16.1353, 5.40852 )
+rotation = 1.47825
+scale = Vector2( 0.655739, 0.452929 )
+texture = ExtResource( 8 )
+offset = Vector2( 5.72995, -16.7879 )
+flip_v = true
+
+[node name="mole_arm_right" type="Sprite" parent="sprites"]
+position = Vector2( 16.7908, 2.71671 )
+rotation = 1.51153
+scale = Vector2( 0.699676, 0.536886 )
+texture = ExtResource( 8 )
+offset = Vector2( 5.75444, 16.4995 )
+
+[node name="death_ticker" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.25
+one_shot = true
+
+[node name="anim" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+playback_speed = 2.0
+anims/falling = SubResource( 3 )
+anims/falling1 = SubResource( 4 )
+
+[node name="overlay" type="CanvasLayer" parent="."]
+editor/display_folded = true
+
+[node name="target" type="Node2D" parent="overlay"]
+visible = false
+
+[node name="sprite" type="Sprite" parent="overlay/target"]
+material = SubResource( 6 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 9 )
+
+[node name="anim" type="AnimationPlayer" parent="overlay/target/sprite"]
+anims/explode = SubResource( 7 )
+
+[connection signal="body_entered" from="." to="." method="_on_player_body_entered"]
+[connection signal="timeout" from="death_ticker" to="." method="_on_death_ticker_timeout"]

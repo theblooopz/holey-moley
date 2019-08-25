@@ -1,0 +1,431 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/item.gd" type="Script" id=1]
+[ext_resource path="res://images/halo.png" type="Texture" id=2]
+[ext_resource path="res://images/beetle_leg.png" type="Texture" id=3]
+[ext_resource path="res://images/beetle_body.png" type="Texture" id=4]
+[ext_resource path="res://audio/eat_04.ogg" type="AudioStream" id=5]
+[ext_resource path="res://audio/heart.ogg" type="AudioStream" id=6]
+[ext_resource path="res://images/hp.png" type="Texture" id=7]
+
+[sub_resource type="Animation" id=1]
+
+resource_name = "shine"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 360.0 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 33.2471
+height = 4.26149
+
+[sub_resource type="Animation" id=3]
+
+length = 0.6
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("legs/leg1:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 71.031, 45.1885, 71.031 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("legs/leg2:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -64.8258, -84.478, -64.8258 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("legs/leg3:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -65.8197, -87.3245, -65.8197 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("legs2/leg1:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 117.59, 75.4704, 117.59 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("legs2/leg2:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -57.5129, -99.5285, -57.5129 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("legs2/leg3:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -52.8024, -79.7244, -52.8024 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_sfx"
+}, {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource_name = "shine"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_sfx"
+}, {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="items" type="Node"]
+
+[node name="beetle" type="Area2D" parent="." index="0" groups=[
+"BEETLE",
+]]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+chance = 0.5
+
+[node name="halo" type="Sprite" parent="beetle" index="0"]
+
+editor/display_folded = true
+modulate = Color( 0.859375, 0.855126, 0.587463, 0.436471 )
+position = Vector2( -0.167774, 1.77011 )
+scale = Vector2( 0.35, 0.35 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="anim" type="AnimationPlayer" parent="beetle/halo" index="0"]
+
+root_node = NodePath("..")
+autoplay = "shine"
+playback_process_mode = 0
+playback_default_blend_time = 0.0
+playback_speed = 0.15
+anims/shine = SubResource( 1 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="collision" type="CollisionShape2D" parent="beetle" index="1"]
+
+position = Vector2( 0, 1 )
+shape = SubResource( 2 )
+
+[node name="legs" type="Node2D" parent="beetle" index="2"]
+
+editor/display_folded = true
+position = Vector2( 0, -1 )
+scale = Vector2( 0.5, 0.5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="leg1" type="Sprite" parent="beetle/legs" index="0"]
+
+position = Vector2( -7.36755, -8.81186 )
+rotation = 1.23972
+texture = ExtResource( 3 )
+offset = Vector2( -1.54993, 1.66406 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="leg2" type="Sprite" parent="beetle/legs" index="1"]
+
+position = Vector2( -11.4631, 8.12041 )
+rotation = -1.13142
+texture = ExtResource( 3 )
+offset = Vector2( -2.09412, -2.36295 )
+flip_v = true
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="leg3" type="Sprite" parent="beetle/legs" index="2"]
+
+position = Vector2( -8.98138, 15.3114 )
+rotation = -1.14877
+texture = ExtResource( 3 )
+offset = Vector2( -1.49757, -1.28304 )
+flip_v = true
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="legs2" type="Node2D" parent="beetle" index="3"]
+
+editor/display_folded = true
+position = Vector2( 0, -1 )
+rotation = 3.14159
+scale = Vector2( 0.5, -0.5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="leg1" type="Sprite" parent="beetle/legs2" index="0"]
+
+position = Vector2( -7.81348, -8.49903 )
+rotation = 2.05233
+texture = ExtResource( 3 )
+offset = Vector2( -1.94392, 1.28791 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="leg2" type="Sprite" parent="beetle/legs2" index="1"]
+
+position = Vector2( -11.9411, 8.38683 )
+rotation = -1.00379
+texture = ExtResource( 3 )
+offset = Vector2( -1.78693, -1.90999 )
+flip_v = true
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="leg3" type="Sprite" parent="beetle/legs2" index="2"]
+
+position = Vector2( -8.48892, 15.1412 )
+rotation = -0.921576
+texture = ExtResource( 3 )
+offset = Vector2( -1.58429, -1.79682 )
+flip_v = true
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="sprite" type="Sprite" parent="beetle" index="4"]
+
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="anim" type="AnimationPlayer" parent="beetle" index="5"]
+
+root_node = NodePath("..")
+autoplay = "move"
+playback_process_mode = 0
+playback_default_blend_time = 0.0
+playback_speed = 1.25
+anims/move = SubResource( 3 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="item_anim" type="AnimationPlayer" parent="beetle" index="6"]
+
+root_node = NodePath("..")
+autoplay = "move"
+playback_process_mode = 0
+playback_default_blend_time = 0.0
+playback_speed = 1.25
+anims/vanish = SubResource( 4 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="beetle" index="7"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 500.0
+attenuation = 1.0
+bus = "SFX"
+area_mask = 1
+
+[node name="heart" type="Area2D" parent="." index="1" groups=[
+"HEART",
+]]
+
+position = Vector2( 84, 0 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+chance = 0.2
+
+[node name="halo" type="Sprite" parent="heart" index="0"]
+
+editor/display_folded = true
+modulate = Color( 0.859375, 0.587463, 0.587463, 0.436471 )
+position = Vector2( -0.16777, 1.77011 )
+rotation = 1.74846e-07
+scale = Vector2( 0.35, 0.35 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="anim" type="AnimationPlayer" parent="heart/halo" index="0"]
+
+root_node = NodePath("..")
+autoplay = "shine"
+playback_process_mode = 0
+playback_default_blend_time = 0.0
+playback_speed = 0.15
+anims/shine = SubResource( 5 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="collision" type="CollisionShape2D" parent="heart" index="1"]
+
+position = Vector2( -2, 1 )
+shape = SubResource( 2 )
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="heart" index="2"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 500.0
+attenuation = 1.0
+bus = "SFX"
+area_mask = 1
+
+[node name="sprite" type="Sprite" parent="heart" index="3"]
+
+position = Vector2( -1, 2 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="item_anim" type="AnimationPlayer" parent="heart" index="4"]
+
+root_node = NodePath("..")
+autoplay = "move"
+playback_process_mode = 0
+playback_default_blend_time = 0.0
+playback_speed = 1.25
+anims/vanish = SubResource( 6 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[connection signal="body_entered" from="beetle" to="beetle" method="_on_beetle_body_entered"]
+
+[connection signal="body_entered" from="heart" to="heart" method="_on_beetle_body_entered"]
+
+
