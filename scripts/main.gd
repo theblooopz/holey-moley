@@ -129,7 +129,7 @@ func _on_screen_resized():
 func do_shake():
 	var amp = 5
 	var rand = Vector2(0,0)
-	rand.x = 0
+	rand.x = rand_range(-amp, amp)
 	rand.y = rand_range(-amp, amp)
 	shaker.interpolate_property(camera, "offset", camera.offset, camera.offset + rand,
 		shaker.get_node("shake_freq").wait_time, Tween.TRANS_LINEAR,Tween.EASE_IN)
@@ -141,6 +141,8 @@ func _on_shake_freq_timeout():
 func _on_shake_dur_timeout():
 	shaker.stop_all()
 	shaker.get_node("shake_freq").stop()
+	
+	camera.offset.x = 0
 	
 func _physics_process(delta):
 	
@@ -187,8 +189,9 @@ func _physics_process(delta):
 		if not player.dead:
 			
 			#get max depth
-			if player.get_global_position().y > max_depth:
-				max_depth = player.get_global_position().y
+			if player.is_inside_tree():
+				if player.get_global_position().y > max_depth:
+					max_depth = player.get_global_position().y
 			
 			#keep score
 			score = score_rollover + max_depth/SCORE_FACTOR

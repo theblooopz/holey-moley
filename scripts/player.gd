@@ -114,6 +114,7 @@ func _input(event):
 			target_sprite.get_node("anim").play("explode")
 
 func _physics_process(delta):
+	
 
 	ray_colliding = ray.is_colliding()
 	if ray_colliding:
@@ -135,11 +136,10 @@ func _physics_process(delta):
 		can_latch = false
 	
 	#rotate the sprite to match the angle
-	if not tween.is_active():
-		sprites.set_rotation(PI*1.5 + get_global_position().angle_to_point(ivec))
-	else:
-		sprites.set_rotation(sprite_rotation)
-		
+	var to_angle = PI*1.5 + get_global_position().angle_to_point(ivec)
+	sprite_rotation = lerp(sprite_rotation, to_angle, 0.9*delta)
+	sprites.set_rotation(sprite_rotation)
+	
 	#match first end of rope x and y position with player x and y position
 	rope.set_point_position(0, $sprites/rope_from.get_global_transform().get_origin())
 	rope.set_point_position(1, ivec)
